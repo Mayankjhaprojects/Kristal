@@ -1,241 +1,338 @@
-📊 Kristal.AI – Fund Management Dashboard
+# 📊 Kristal.AI – Fund Management Dashboard
 
-An advanced MERN stack platform for managing, analyzing, and comparing investment funds. Designed to handle large-scale fund data, provide AI-powered insights, and allow hybrid search for fund discovery.
+A modern MERN stack application for managing, comparing, and analyzing investment funds. Users can upload fund data, perform AI-powered analysis, and generate professional PDF reports — all within a secure, intuitive dashboard.
 
-🎯 What This Project Does
 
-This dashboard enables fund managers, analysts, and investors to:
 
-Upload and store fund data from Excel into MongoDB.
+## 🎯 What This Project Does
 
-Select and compare up to 10 funds across 10 key parameters (from 127 total fields).
+This platform empowers fund managers and analysts to streamline fund data management and insights:
 
-Visualize fund performance through interactive charts & tables.
+1. **Data Upload & Storage** -Upload Excel files containing fund data and store them in MongoDB
+2. **Fund Comparison Engine** -Compare up to 10 funds across 10 chosen parameters
+3. **AI Insights Generator** - Get contextual analysis using GPT-powered models
+4. **Hybrid Search System** - Combine structured queries with semantic vector search
+5. **Reporting & Visualization** - View insights in tables/charts and export PDF reports
+   
 
-Generate AI-powered insights using GPT.
+### Key Features
 
-Export comparisons and insights to PDF reports.
+- 📂 **Excel Upload** - Import .xlsx files and parse fund details automatically
+- 🔐 **Authentication** -Secure JWT-based login and signup (access + refresh tokens)
+- 📊 **Visual Analytics** - Compare funds with interactive charts (Recharts)
+- 🤖 **AI-Powered Insights** - Natural language analysis of fund performance
+- 📄 **PDF Reports** - Export comparison results and insights into professional reports
+-🔍 **Smart Search** - Hybrid model (structured queries + vector embeddings)
 
-Perform hybrid fund search combining structured queries and semantic vector search.
+## 🧠 Key Concepts Explained
 
-✨ Key Features
+If you're new to these concepts, here are some quick guides:
 
-📄 Excel Upload – Import fund data seamlessly from .xlsx files.
+### Hybrid Search
+- **What it is**:Combines exact (structured) filtering with semantic (vector) search
+- **Why it matters**:Ensures both precision and context-based fund retrieval
 
-📊 Fund Comparison – Compare multiple funds across chosen parameters.
+### Vector Embeddings & Semantic Search
+- **Beginner's Guide**:https://www.pinecone.io/learn/vector-embeddings/
+- **Use Here**: Encodes fund data for semantic fund comparison
 
-📈 Charts & Visualizations – Interactive graphs built with Recharts.
+### GPT Insights
+- **What it is**: AI-driven text analysis using GPT models
+- **Use Here**: Automatically explains fund performance, risk, and opportunities
 
-🤖 AI Insights – Natural language analysis powered by GPT API.
+### JWT Authentication
+- **What it is**:Secure token-based authentication system
+- **Use Here**: Protects fund data with access & refresh tokens
 
-📑 Report Export – Save comparisons & insights as PDF.
 
-🔐 Authentication – JWT-based login/signup with access & refresh tokens.
 
-🔍 Hybrid Search – Combine structured filtering with semantic similarity search.
+## 🏗️ Architecture Overview
 
-🧠 Key Concepts Explained
+```
+┌───────────────────┐     ┌────────────────────┐     ┌─────────────────┐
+│   Frontend        │     │    Backend (API)   │     │   AI Services   │
+│   (React + Vite)  │◄───►│   (Node + Express) │◄───►│   GPT Models    │
+│                   │     │                    │     │                 │
+│ • Fund Dashboard  │     │ • Fund Data API    │     │ • Insights Gen  │
+│ • Upload UI       │     │ • Auth (JWT)       │     │ • Embeddings    │
+│ • Visualization   │     │ • Excel Parser     │     │                 │
+└───────────────────┘     │ • PDF Generator    │     └─────────────────┘
+                          │ • Hybrid Search    │
+                          └────────────────────┘
+                                   │
+                          ┌────────────────────┐
+                          │   Database (Mongo) │
+                          │ • Fund Records     │
+                          │ • User Accounts    │
+                          └────────────────────┘
 
-If you’re new to the underlying technologies, here are some resources:
+```
 
-Hybrid Search
+## 🚀 Getting Started
 
-Vector Search Basics – How semantic embeddings improve search.
+### Prerequisites
 
-Combining Structured + Semantic – Why hybrid search is powerful.
+Before you begin, ensure you have the following installed:
 
-JWT Authentication
+- **MongoDB** - [Download MongoDB](https://www.mongodb.com/)
+- **Node.js 18+** - [Download Node.js](https://nodejs.org/)
+- **Git** - [Download Git](https://git-scm.com/downloads)
 
-JWT Guide – How tokens secure APIs.
+### Create .env file in backend folder
 
-Excel → MongoDB Pipelines
 
-Excel Parsing in Node.js – Library used to process fund files.
+1.MONGO_URI=your_mongo_connection_string
+2.GITHUB_TOKEN=your_github_token   # or OpenAI API key if replacing GPT logic
+3. JWT_ACCESS_SECRET=your_access_secret
+4. JWT_REFRESH_SECRET=your_refresh_secret
+5. JWT_ACCESS_EXPIRES_IN=15m
+6. JWT_REFRESH_EXPIRES_IN=7d
 
-GPT Integration
+## 📋 Installation Steps
 
-OpenAI Docs – How to call GPT for financial insights.
+### Step 1: Clone the Repository
 
-🏗️ Architecture Overview
-┌──────────────────┐     ┌──────────────────┐     ┌────────────────────┐
-│   Frontend       │     │   Backend        │     │   AI & Database    │
-│  (React + Vite)  │◄──► │ (Node.js + Exp.) │ ◄──►│ GPT API + MongoDB │
-│                  │     │                  │     │ Vector Search      │
-│ • Fund Upload    │     │ • Auth (JWT)     │     │ (Embeddings)       │
-│ • Comparison UI  │     │ • Excel Parsing  │     │ PDF Generation     │
-│ • Charts         │     │ • Fund Storage   │     │                    │
-└──────────────────┘     └──────────────────┘     └────────────────────┘
+```bash
+git clone <your-repository-url>
+cd financial-ai-platform
+```
 
-🚀 Getting Started
-🔹 Prerequisites
+### Step 2: Backend Setup
 
-Make sure you have installed:
+1. **Navigate to backend directory:**
+   ```bash
+   cd backend
+   ```
 
-Node.js 18+
+2. **Create and activate virtual environment:**
+   ```bash
+   # On macOS/Linux:
+   python3 -m venv venv
+   source venv/bin/activate
 
-MongoDB (local or cloud)
+   # On Windows:
+   python -m venv venv
+   venv\Scripts\activate
+   ```
 
-Git
+3. **Install Python dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-🔹 Required API Keys
+4. **Create environment variables file:**
+   ```bash
+   cp env.example .env  # Copy the example file and rename it
+   ```
 
-MongoDB Connection String
+5. **Configure your `.env` file** with your API keys:
+   ```env
+   # Required
+   OPENAI_API_KEY=your_openai_api_key_here
 
-OpenAI API Key (or GitHub-hosted GPT Token if using GitHub model)
+   # Optional - for news features
+   NEWS_API_KEY=your_news_api_key_here
+   ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key_here
+   
+   # Optional - for advanced vector storage
+   VECTORIZE_API_TOKEN=your_vectorize_api_token_here
+   ```
 
-📋 Installation Steps
-1️⃣ Clone the Repository
-git clone https://github.com/Mayankjhaprojects/Kristal.AI.git
-cd Kristal.AI
+6. **Start the backend server:**
+   ```bash
+   python main.py
+   ```
 
-2️⃣ Backend Setup
-cd backend
-npm install
+   The backend will start at `http://localhost:8000`
 
+### Step 3: Frontend Setup
 
-Create a .env file inside backend/:
+1. **Open a new terminal** and navigate to frontend directory:
+   ```bash
+   cd frontend
+   ```
 
-MONGO_URI=your_mongo_connection_string
-OPENAI_API_KEY=your_openai_key_here  # or GITHUB_TOKEN if using GitHub GPT
-JWT_ACCESS_SECRET=your_access_secret
-JWT_REFRESH_SECRET=your_refresh_secret
-JWT_ACCESS_EXPIRES_IN=15m
-JWT_REFRESH_EXPIRES_IN=7d
+2. **Install Node.js dependencies:**
+   ```bash
+   npm install
+   ```
 
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-Run backend server:
+   The frontend will start at `http://localhost:3000`
 
-npm run dev
+### Step 4: Verify Installation
 
+1. Open your browser and go to `http://localhost:3000`
+2. You should see the Financial AI Platform interface
+3. Try uploading a sample PDF document to test the system
 
-Backend runs at: http://localhost:5000
+## 📱 How to Use
 
-3️⃣ Frontend Setup
-cd frontend
-npm install
-npm start
+### Uploading Documents
 
+1. **Bank Statements**: Click the "Upload Statement" button and select a PDF bank statement
+2. **Investment Factsheets**: Use the "Upload Factsheet" section for investment documents
 
-Frontend runs at: http://localhost:3000
+### Asking Questions
 
-4️⃣ Verify Installation
+Once documents are uploaded, you can ask questions like:
 
-Open browser → http://localhost:3000
+- "What's my account balance?"
+- "Show me my largest transactions this month"
+- "What fees were charged to my account?"
+- "Analyze my investment portfolio"
+- "What's the latest news about Apple stock?"
 
-Register & Login.
+### Understanding Responses
 
-Upload a sample fund Excel file.
+The AI will provide detailed answers and indicate which document or source the information came from.
 
-Compare funds & generate AI insights.
+## 🛠️ Technology Stack
 
-📱 How to Use
+**Backend:**
+- [FastAPI](https://fastapi.tiangolo.com/) - Modern Python web framework
+- [LangChain](https://python.langchain.com/) - LLM application framework
+- [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
+- [OpenAI API](https://openai.com/api/) - GPT-4.1 Mini and embeddings
 
-Upload Fund Data – Import Excel files with fund details.
+**Frontend:**
+- [Next.js 15](https://nextjs.org/) - React framework with App Router
+- [React 19](https://react.dev/) - UI library
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Shadcn/ui](https://ui.shadcn.com/) - Modern component library
 
-Compare Funds – Select up to 10 funds and 10 parameters.
+**AI/ML:**
+- **Text Embeddings**: `text-embedding-3-small` for document vectorization
+- **Chat Completions**: `gpt-4.1-mini-2025-04-14` for intelligent responses
+- **Vector Storage**: FAISS for fast similarity search
 
-Visualize – Switch between tables and charts.
+## 📂 Project Structure
 
-Get AI Insights – Ask questions like:
-
-“Which fund has the best Sharpe ratio?”
-
-“Compare risk-adjusted returns of top 3 funds.”
-
-Export Reports – Download insights as PDF.
-
-🛠️ Technology Stack
-
-Backend
-
-Node.js + Express
-
-MongoDB (Fund storage)
-
-JWT Authentication
-
-OpenAI API (or GitHub GPT)
-
-Frontend
-
-React + Vite
-
-Tailwind CSS + Shadcn UI
-
-Recharts (visualizations)
-
-AI/ML
-
-GPT (insight generation)
-
-Vector embeddings (semantic search)
-
-📂 Project Structure
-Kristal.AI/
+```
+financial-ai-platform/
 ├── backend/
-│   ├── routes/           # Auth, funds, AI endpoints
-│   ├── models/           # MongoDB fund schemas
-│   ├── utils/            # Excel parsing, JWT handling
-│   ├── server.js         # Express server entry
-│   └── .env.example      # Env config
+│   ├── agents/                 # AI agent implementations
+│   │   ├── orchestrator.py    # Coordinates all agents
+│   │   ├── statement_analyst.py # Bank statement analysis
+│   │   ├── factsheet_analyst.py # Investment document analysis
+│   │   └── news_agent.py      # Financial news fetching
+│   ├── storage/               # Document storage
+│   │   ├── statements/        # Processed bank statements
+│   │   └── factsheets/       # Processed factsheets
+│   ├── main.py               # FastAPI server
+│   └── requirements.txt      # Python dependencies
 ├── frontend/
 │   ├── src/
-│   │   ├── components/   # UI Components
-│   │   ├── pages/        # Dashboard pages
-│   │   └── hooks/        # Custom hooks
-│   ├── package.json
-│   └── vite.config.js
-└── README.md
+│   │   ├── app/              # Next.js app router pages
+│   │   ├── components/       # React components
+│   │   │   ├── ChatInterface.tsx
+│   │   │   ├── AnalysisResults.tsx
+│   │   │   └── ui/           # Shadcn/ui components
+│   │   └── hooks/            # React hooks
+│   ├── package.json          # Node.js dependencies
+│   └── next.config.ts        # Next.js configuration
+└── README.md                 # This file
+```
 
-🔧 Configuration
+## 🔧 Configuration
 
-Create .env file inside backend/:
+### Environment Variables
 
-MONGO_URI=your-mongo-uri
-OPENAI_API_KEY=sk-your-openai-key
-JWT_ACCESS_SECRET=secret123
-JWT_REFRESH_SECRET=secret456
+Create a `.env` file in the `backend/` directory:
 
-🐛 Troubleshooting
+```env
+# Required
+OPENAI_API_KEY=sk-your-key-here
 
-Push blocked due to secrets → Ensure .env is in .gitignore.
+# Optional - News Features
+NEWS_API_KEY=your-news-api-key
+ALPHA_VANTAGE_API_KEY=your-alpha-vantage-key
 
-Excel upload fails → Check Excel format matches schema.
+# Optional - Advanced Vector Storage
+VECTORIZE_API_TOKEN=your-vectorize-token
+VECTORIZE_ORG_ID=your-org-id
+VECTORIZE_PIPELINE_ID=your-pipeline-id
+```
 
-JWT expired → Refresh token via /api/auth/refresh.
+### Customization Options
 
-AI not responding → Verify OpenAI/GitHub API key in .env.
+1. **Model Selection**: Change the AI model in `agents/orchestrator.py`
+2. **Embedding Model**: Modify the embedding model in `agents/statement_analyst.py`
+3. **UI Theme**: Customize colors in `frontend/src/app/globals.css`
 
-🚀 Deployment
+## 🐛 Troubleshooting
 
-Backend → Deploy to Render, Railway, or AWS.
+### Common Issues
 
-Frontend → Deploy to Vercel or Netlify.
+1. **"Module not found" errors**:
+   - Ensure virtual environment is activated: `source venv/bin/activate`
+   - Reinstall dependencies: `pip install -r requirements.txt`
 
-Set environment variables securely in deployment platform.
+2. **OpenAI API errors**:
+   - Verify your API key is correct
+   - Check your OpenAI account has sufficient credits
+   - Ensure the key has proper permissions
 
-🤝 Contributing
+3. **Frontend not connecting to backend**:
+   - Verify backend is running on `http://localhost:8000`
+   - Check CORS settings in `main.py`
 
-We welcome contributions!
+4. **PDF processing fails**:
+   - Ensure the PDF is not password-protected
+   - Try with a smaller PDF file first
+   - Check file permissions
 
-Fork the repo
+### Getting Help
 
-Create a feature branch
+If you encounter issues:
 
-Submit a pull request
+1. Check the terminal/console for error messages
+2. Verify all API keys are correctly set
+3. Ensure all dependencies are installed
+4. Try restarting both frontend and backend servers
 
-📄 License
+## 🚀 Deployment
 
-MIT License – Free to use for learning & development.
+For production deployment:
 
-🎓 Learning Resources
+1. **Backend**: Deploy to services like Railway, Render, or AWS
+2. **Frontend**: Deploy to Vercel, Netlify, or similar platforms
+3. **Environment Variables**: Set all required API keys in your deployment platform
 
-MongoDB Atlas Setup
+## 🤝 Contributing
 
-OpenAI GPT Docs
+This is a learning project demonstrating multi-agent AI systems. Feel free to:
 
-MERN Stack Crash Course
+- Fork the repository
+- Create feature branches
+- Submit pull requests
+- Report issues
 
-JWT Authentication Guide
+## 📄 License
 
-🔥 Built with ❤️ using MongoDB, Express, React, Node.js, and GPT for smart fund analysis.
+This project is intended for educational purposes. Please ensure you comply with the terms of service of all third-party APIs used.
+
+## 🎓 Learning Resources
+
+### Next Steps to Extend This Project
+
+1. **Add More Agent Types**: Create agents for different financial tasks
+2. **Implement Caching**: Add Redis for better performance
+3. **Add Authentication**: Implement user accounts and security
+4. **Mobile App**: Create a React Native version
+5. **Advanced Analytics**: Add charts and data visualization
+
+### Related Learning Materials
+
+- [Building AI Agents with LangChain](https://python.langchain.com/docs/tutorials/agents)
+- [FastAPI Tutorial](https://fastapi.tiangolo.com/tutorial/)
+- [Next.js 15 Documentation](https://nextjs.org/docs)
+- [Vector Databases Explained](https://www.pinecone.io/learn/vector-database/)
+
+---
+
+Built with ❤️ using AI, Python, and TypeScript. Perfect for learning about multi-agent systems and modern web development! 

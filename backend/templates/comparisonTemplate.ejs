@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Fund Comparison</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h2 { color: #333; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+    a { color: #007BFF; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h2>🟢 Fund Comparison Report</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <% funds.forEach(f => { %>
+          <th><%= f.fundCode %></th>
+        <% }) %>
+      </tr>
+    </thead>
+    <tbody>
+      <% params.forEach(param => { %>
+        <tr>
+          <td><strong><%= param %></strong></td>
+          <% funds.forEach(f => { %>
+            <td>
+              <% if (param === 'fundUrl') { %>
+                <a href="<%= f[param] %>">Link</a>
+              <% } else { %>
+                <%= f[param] %>
+              <% } %>
+            </td>
+          <% }) %>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -1,155 +1,241 @@
-**Kristal.AI – Fund Management Dashboard**
+📊 Kristal.AI – Fund Management Dashboard
 
-A MERN stack based Fund Management Dashboard that allows users to:
+An advanced MERN stack platform for managing, analyzing, and comparing investment funds. Designed to handle large-scale fund data, provide AI-powered insights, and allow hybrid search for fund discovery.
 
-1) 📂 Upload fund data via Excel
+🎯 What This Project Does
 
-2) 🗄️ Store and manage fund details in MongoDB
+This dashboard enables fund managers, analysts, and investors to:
 
-3) 📊 Select and compare up to 10 funds across 10 parameters (from 127 total fields)
+Upload and store fund data from Excel into MongoDB.
 
-4) 📈 View data in tables and visualizations
+Select and compare up to 10 funds across 10 key parameters (from 127 total fields).
 
-5) 🤖 Get AI-powered insights using GPT
+Visualize fund performance through interactive charts & tables.
 
-6) 📑 Export analysis to PDF reports
+Generate AI-powered insights using GPT.
 
-7) 🔎 Perform hybrid fund search (structured SQL-like + semantic vector search)
+Export comparisons and insights to PDF reports.
 
+Perform hybrid fund search combining structured queries and semantic vector search.
 
+✨ Key Features
 
+📄 Excel Upload – Import fund data seamlessly from .xlsx files.
 
+📊 Fund Comparison – Compare multiple funds across chosen parameters.
 
+📈 Charts & Visualizations – Interactive graphs built with Recharts.
 
+🤖 AI Insights – Natural language analysis powered by GPT API.
 
-**🚀 Features**
+📑 Report Export – Save comparisons & insights as PDF.
 
-1) Excel Upload – Upload .xlsx files containing fund data and store in MongoDB
+🔐 Authentication – JWT-based login/signup with access & refresh tokens.
 
-2) Fund Comparison – Select multiple funds and compare chosen parameters
+🔍 Hybrid Search – Combine structured filtering with semantic similarity search.
 
-3) Charts & Visualizations – Compare visually using Recharts
+🧠 Key Concepts Explained
 
-4) AI Insights – Generate analysis via GPT API (using GitHub-hosted GPT model by default)
+If you’re new to the underlying technologies, here are some resources:
 
-🔹 Can be swapped with OpenAI GPT API easily
+Hybrid Search
 
-5) Export Reports – Download insights and comparisons as PDF
+Vector Search Basics – How semantic embeddings improve search.
 
-6) Authentication – JWT-based login/signup with access & refresh tokens
+Combining Structured + Semantic – Why hybrid search is powerful.
 
-7) Hybrid Search – Combines structured filters + semantic vector similarity
+JWT Authentication
 
+JWT Guide – How tokens secure APIs.
 
+Excel → MongoDB Pipelines
 
+Excel Parsing in Node.js – Library used to process fund files.
 
+GPT Integration
 
+OpenAI Docs – How to call GPT for financial insights.
 
-⚙️ Installation & Setup
-1️⃣ Clone Repository
--- git clone https://github.com/Mayankjhaprojects/Kristal.AI.git
--- cd Kristal.AI
+🏗️ Architecture Overview
+┌──────────────────┐     ┌──────────────────┐     ┌────────────────────┐
+│   Frontend       │     │   Backend        │     │   AI & Database    │
+│  (React + Vite)  │◄──► │ (Node.js + Exp.) │ ◄──►│ GPT API + MongoDB │
+│                  │     │                  │     │ Vector Search      │
+│ • Fund Upload    │     │ • Auth (JWT)     │     │ (Embeddings)       │
+│ • Comparison UI  │     │ • Excel Parsing  │     │ PDF Generation     │
+│ • Charts         │     │ • Fund Storage   │     │                    │
+└──────────────────┘     └──────────────────┘     └────────────────────┘
+
+🚀 Getting Started
+🔹 Prerequisites
+
+Make sure you have installed:
+
+Node.js 18+
+
+MongoDB (local or cloud)
+
+Git
+
+🔹 Required API Keys
+
+MongoDB Connection String
+
+OpenAI API Key (or GitHub-hosted GPT Token if using GitHub model)
+
+📋 Installation Steps
+1️⃣ Clone the Repository
+git clone https://github.com/Mayankjhaprojects/Kristal.AI.git
+cd Kristal.AI
 
 2️⃣ Backend Setup
--- cd backend
--- npm install
+cd backend
+npm install
 
 
-
-**Create a .env file inside backend/**
+Create a .env file inside backend/:
 
 MONGO_URI=your_mongo_connection_string
-GITHUB_TOKEN=your_github_token   # or OpenAI API key if replacing GPT logic
+OPENAI_API_KEY=your_openai_key_here  # or GITHUB_TOKEN if using GitHub GPT
 JWT_ACCESS_SECRET=your_access_secret
 JWT_REFRESH_SECRET=your_refresh_secret
 JWT_ACCESS_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
 
 
+Run backend server:
 
-**Run backend:**
--- npx nodemon server.js  or  node server.js
+npm run dev
 
 
+Backend runs at: http://localhost:5000
 
 3️⃣ Frontend Setup
--- cd frontend
--- npm install
--- npm start  or  npm run dev
+cd frontend
+npm install
+npm start
 
 
+Frontend runs at: http://localhost:3000
 
+4️⃣ Verify Installation
 
-🤖 AI Integration
+Open browser → http://localhost:3000
 
-Currently uses GitHub-hosted GPT model with your GITHUB_TOKEN.
+Register & Login.
 
-**To use OpenAI GPT API instead:**
-**1)Install OpenAI SDK:**
-npm install openai
+Upload a sample fund Excel file.
 
+Compare funds & generate AI insights.
 
-**2)Replace GPT logic in backend route:**
+📱 How to Use
 
-import OpenAI from "openai";
+Upload Fund Data – Import Excel files with fund details.
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+Compare Funds – Select up to 10 funds and 10 parameters.
 
-const response = await client.chat.completions.create({
-  model: "gpt-4",
-  messages: [{ role: "user", content: "Analyze fund performance..." }],
-});
+Visualize – Switch between tables and charts.
 
+Get AI Insights – Ask questions like:
 
+“Which fund has the best Sharpe ratio?”
 
+“Compare risk-adjusted returns of top 3 funds.”
 
+Export Reports – Download insights as PDF.
 
+🛠️ Technology Stack
 
-📊 Fund Comparison Features
+Backend
 
-1) Select up to 10 funds
+Node.js + Express
 
-2) Select up to 10 parameters (from 127 schema fields)
+MongoDB (Fund storage)
 
-3) Compare funds in table view
+JWT Authentication
 
-4) Generate charts with Recharts
+OpenAI API (or GitHub GPT)
 
-5) Export comparisons + insights as PDF
+Frontend
 
+React + Vite
 
+Tailwind CSS + Shadcn UI
 
+Recharts (visualizations)
 
+AI/ML
 
+GPT (insight generation)
 
-📄 API Endpoints (Backend)
-**Method            	Endpoint	                 Description**
+Vector embeddings (semantic search)
 
-POST	          /api/auth/signup	          User registration
-POST	          /api/auth/login	            User login (returns tokens)
-POST	          /api/funds/upload         	Upload Excel file and parse to DB
-GET	            /api/funds	                Get all funds
-GET	            /api/funds/:id	            Get single fund details
-POST	          /api/funds/compare	        Compare selected funds
-POST	          /api/funds/search	          Hybrid structured + semantic search
-POST	          /api/ai/insights	          Generate GPT-powered insights
+📂 Project Structure
+Kristal.AI/
+├── backend/
+│   ├── routes/           # Auth, funds, AI endpoints
+│   ├── models/           # MongoDB fund schemas
+│   ├── utils/            # Excel parsing, JWT handling
+│   ├── server.js         # Express server entry
+│   └── .env.example      # Env config
+├── frontend/
+│   ├── src/
+│   │   ├── components/   # UI Components
+│   │   ├── pages/        # Dashboard pages
+│   │   └── hooks/        # Custom hooks
+│   ├── package.json
+│   └── vite.config.js
+└── README.md
 
+🔧 Configuration
 
+Create .env file inside backend/:
 
+MONGO_URI=your-mongo-uri
+OPENAI_API_KEY=sk-your-openai-key
+JWT_ACCESS_SECRET=secret123
+JWT_REFRESH_SECRET=secret456
 
+🐛 Troubleshooting
 
+Push blocked due to secrets → Ensure .env is in .gitignore.
 
-✅ Tech Stack
+Excel upload fails → Check Excel format matches schema.
 
-1) Frontend: React + Tailwind + Recharts
+JWT expired → Refresh token via /api/auth/refresh.
 
-2) Backend: Node.js + Express
+AI not responding → Verify OpenAI/GitHub API key in .env.
 
-3) Database: MongoDB + Mongoose
+🚀 Deployment
 
-4) Authentication: JWT (access + refresh tokens)
+Backend → Deploy to Render, Railway, or AWS.
 
-5)AI: GPT (GitHub-hosted / OpenAI API)
+Frontend → Deploy to Vercel or Netlify.
 
+Set environment variables securely in deployment platform.
 
+🤝 Contributing
 
+We welcome contributions!
+
+Fork the repo
+
+Create a feature branch
+
+Submit a pull request
+
+📄 License
+
+MIT License – Free to use for learning & development.
+
+🎓 Learning Resources
+
+MongoDB Atlas Setup
+
+OpenAI GPT Docs
+
+MERN Stack Crash Course
+
+JWT Authentication Guide
+
+🔥 Built with ❤️ using MongoDB, Express, React, Node.js, and GPT for smart fund analysis.

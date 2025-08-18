@@ -127,8 +127,30 @@ Before you begin, ensure you have the following installed:
    npm run dev
    ```
 
+   
+### Step 3: Python Setup
 
-### Step 3: AI Integration
+1. **Make sure you have Python 3.8+ installed. Check with:**
+   ```bash
+   python --version
+   ```
+1. **Required Python packages**
+   ```bash
+   pip install sentence-transformers
+   pip install torch
+   ```
+   ⚡ sentence-transformers internally uses PyTorch, so installing torch is essential.
+
+3. **Model download**
+
+    The first time you run the script, it will automatically download the pretrained model all-MiniLM-L6-v2 from Hugging Face.
+    Make sure you have an internet connection for the first run.
+    After that, the model will be cached locally
+   
+
+
+
+### Step 4: AI Integration
 
 1. **Install OpenAI SDK:** 
    ```bash

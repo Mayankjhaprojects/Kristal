@@ -78,74 +78,39 @@ Before you begin, ensure you have the following installed:
 - **Node.js 18+** - [Download Node.js](https://nodejs.org/)
 - **Git** - [Download Git](https://git-scm.com/downloads)
 
-### Create .env file in backend folder
 
 
-1.MONGO_URI=your_mongo_connection_string
-2.GITHUB_TOKEN=your_github_token   # or OpenAI API key if replacing GPT logic
-3. JWT_ACCESS_SECRET=your_access_secret
-4. JWT_REFRESH_SECRET=your_refresh_secret
-5. JWT_ACCESS_EXPIRES_IN=15m
-6. JWT_REFRESH_EXPIRES_IN=7d
 
 ## 📋 Installation Steps
 
-### Step 1: Clone the Repository
 
-```bash
-git clone <your-repository-url>
-cd financial-ai-platform
-```
-
-### Step 2: Backend Setup
+### Step 1: Backend Setup
 
 1. **Navigate to backend directory:**
    ```bash
    cd backend
+   npm install
    ```
-
-2. **Create and activate virtual environment:**
+1. **Run Backend:**
    ```bash
-   # On macOS/Linux:
-   python3 -m venv venv
-   source venv/bin/activate
-
-   # On Windows:
-   python -m venv venv
-   venv\Scripts\activate
+   npx nodemon server.js
    ```
 
-3. **Install Python dependencies:**
+2. **Create a .env file inside the backend folder:**
    ```bash
-   pip install -r requirements.txt
+   MONGO_URI=your_mongo_connection_string
+   GITHUB_TOKEN=your_github_token   # or OpenAI API key if replacing GPT logic
+   JWT_ACCESS_SECRET=your_access_secret
+   JWT_REFRESH_SECRET=your_refresh_secret
+   JWT_ACCESS_EXPIRES_IN=15m
+   JWT_REFRESH_EXPIRES_IN=7d
+
    ```
 
-4. **Create environment variables file:**
-   ```bash
-   cp env.example .env  # Copy the example file and rename it
-   ```
 
-5. **Configure your `.env` file** with your API keys:
-   ```env
-   # Required
-   OPENAI_API_KEY=your_openai_api_key_here
 
-   # Optional - for news features
-   NEWS_API_KEY=your_news_api_key_here
-   ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key_here
-   
-   # Optional - for advanced vector storage
-   VECTORIZE_API_TOKEN=your_vectorize_api_token_here
-   ```
 
-6. **Start the backend server:**
-   ```bash
-   python main.py
-   ```
-
-   The backend will start at `http://localhost:8000`
-
-### Step 3: Frontend Setup
+### Step 2: Frontend Setup
 
 1. **Open a new terminal** and navigate to frontend directory:
    ```bash
@@ -162,177 +127,48 @@ cd financial-ai-platform
    npm run dev
    ```
 
-   The frontend will start at `http://localhost:3000`
 
-### Step 4: Verify Installation
+### Step 3: AI Integration
 
-1. Open your browser and go to `http://localhost:3000`
-2. You should see the Financial AI Platform interface
-3. Try uploading a sample PDF document to test the system
+1. **Install OpenAI SDK:** 
+   ```bash
+   npm install openai
+   ```
 
-## 📱 How to Use
+2. **Replace GPT logic in backend route:**
+   ```bash
+   import OpenAI from "openai";
 
-### Uploading Documents
+   const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-1. **Bank Statements**: Click the "Upload Statement" button and select a PDF bank statement
-2. **Investment Factsheets**: Use the "Upload Factsheet" section for investment documents
+   const response = await client.chat.completions.create({
+   model: "gpt-4",
+   messages: [{ role: "user", content: "Analyze fund performance..." }],
+   });
 
-### Asking Questions
+   ```
 
-Once documents are uploaded, you can ask questions like:
 
-- "What's my account balance?"
-- "Show me my largest transactions this month"
-- "What fees were charged to my account?"
-- "Analyze my investment portfolio"
-- "What's the latest news about Apple stock?"
+### 📄 API Endpoints (Backend)
+  
 
-### Understanding Responses
+| Method | Endpoint             | Description                         |
+| ------ | -------------------- | ----------------------------------- |
+| POST   | `/api/auth/signup`   | User registration                   |
+| POST   | `/api/auth/login`    | User login (returns tokens)         |
+| POST   | `/api/funds/upload`  | Upload Excel file and parse to DB   |
+| GET    | `/api/funds`         | Get all funds                       |
+| GET    | `/api/funds/:id`     | Get single fund details             |
+| POST   | `/api/funds/compare` | Compare selected funds              |
+| POST   | `/api/funds/search`  | Hybrid structured + semantic search |
+| POST   | `/api/ai/insights`   | Generate GPT-powered insights       |
 
-The AI will provide detailed answers and indicate which document or source the information came from.
 
-## 🛠️ Technology Stack
+## 📊 Fund Comparison Features  
 
-**Backend:**
-- [FastAPI](https://fastapi.tiangolo.com/) - Modern Python web framework
-- [LangChain](https://python.langchain.com/) - LLM application framework
-- [FAISS](https://github.com/facebookresearch/faiss) - Vector similarity search
-- [OpenAI API](https://openai.com/api/) - GPT-4.1 Mini and embeddings
+- Select up to **10 funds**  
+- Select up to **10 parameters** (from 127 schema fields)  
+- Compare funds in **table view**  
+- View insights via **charts (Recharts)**  
+- **Export results as PDF**  
 
-**Frontend:**
-- [Next.js 15](https://nextjs.org/) - React framework with App Router
-- [React 19](https://react.dev/) - UI library
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [Shadcn/ui](https://ui.shadcn.com/) - Modern component library
-
-**AI/ML:**
-- **Text Embeddings**: `text-embedding-3-small` for document vectorization
-- **Chat Completions**: `gpt-4.1-mini-2025-04-14` for intelligent responses
-- **Vector Storage**: FAISS for fast similarity search
-
-## 📂 Project Structure
-
-```
-financial-ai-platform/
-├── backend/
-│   ├── agents/                 # AI agent implementations
-│   │   ├── orchestrator.py    # Coordinates all agents
-│   │   ├── statement_analyst.py # Bank statement analysis
-│   │   ├── factsheet_analyst.py # Investment document analysis
-│   │   └── news_agent.py      # Financial news fetching
-│   ├── storage/               # Document storage
-│   │   ├── statements/        # Processed bank statements
-│   │   └── factsheets/       # Processed factsheets
-│   ├── main.py               # FastAPI server
-│   └── requirements.txt      # Python dependencies
-├── frontend/
-│   ├── src/
-│   │   ├── app/              # Next.js app router pages
-│   │   ├── components/       # React components
-│   │   │   ├── ChatInterface.tsx
-│   │   │   ├── AnalysisResults.tsx
-│   │   │   └── ui/           # Shadcn/ui components
-│   │   └── hooks/            # React hooks
-│   ├── package.json          # Node.js dependencies
-│   └── next.config.ts        # Next.js configuration
-└── README.md                 # This file
-```
-
-## 🔧 Configuration
-
-### Environment Variables
-
-Create a `.env` file in the `backend/` directory:
-
-```env
-# Required
-OPENAI_API_KEY=sk-your-key-here
-
-# Optional - News Features
-NEWS_API_KEY=your-news-api-key
-ALPHA_VANTAGE_API_KEY=your-alpha-vantage-key
-
-# Optional - Advanced Vector Storage
-VECTORIZE_API_TOKEN=your-vectorize-token
-VECTORIZE_ORG_ID=your-org-id
-VECTORIZE_PIPELINE_ID=your-pipeline-id
-```
-
-### Customization Options
-
-1. **Model Selection**: Change the AI model in `agents/orchestrator.py`
-2. **Embedding Model**: Modify the embedding model in `agents/statement_analyst.py`
-3. **UI Theme**: Customize colors in `frontend/src/app/globals.css`
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **"Module not found" errors**:
-   - Ensure virtual environment is activated: `source venv/bin/activate`
-   - Reinstall dependencies: `pip install -r requirements.txt`
-
-2. **OpenAI API errors**:
-   - Verify your API key is correct
-   - Check your OpenAI account has sufficient credits
-   - Ensure the key has proper permissions
-
-3. **Frontend not connecting to backend**:
-   - Verify backend is running on `http://localhost:8000`
-   - Check CORS settings in `main.py`
-
-4. **PDF processing fails**:
-   - Ensure the PDF is not password-protected
-   - Try with a smaller PDF file first
-   - Check file permissions
-
-### Getting Help
-
-If you encounter issues:
-
-1. Check the terminal/console for error messages
-2. Verify all API keys are correctly set
-3. Ensure all dependencies are installed
-4. Try restarting both frontend and backend servers
-
-## 🚀 Deployment
-
-For production deployment:
-
-1. **Backend**: Deploy to services like Railway, Render, or AWS
-2. **Frontend**: Deploy to Vercel, Netlify, or similar platforms
-3. **Environment Variables**: Set all required API keys in your deployment platform
-
-## 🤝 Contributing
-
-This is a learning project demonstrating multi-agent AI systems. Feel free to:
-
-- Fork the repository
-- Create feature branches
-- Submit pull requests
-- Report issues
-
-## 📄 License
-
-This project is intended for educational purposes. Please ensure you comply with the terms of service of all third-party APIs used.
-
-## 🎓 Learning Resources
-
-### Next Steps to Extend This Project
-
-1. **Add More Agent Types**: Create agents for different financial tasks
-2. **Implement Caching**: Add Redis for better performance
-3. **Add Authentication**: Implement user accounts and security
-4. **Mobile App**: Create a React Native version
-5. **Advanced Analytics**: Add charts and data visualization
-
-### Related Learning Materials
-
-- [Building AI Agents with LangChain](https://python.langchain.com/docs/tutorials/agents)
-- [FastAPI Tutorial](https://fastapi.tiangolo.com/tutorial/)
-- [Next.js 15 Documentation](https://nextjs.org/docs)
-- [Vector Databases Explained](https://www.pinecone.io/learn/vector-database/)
-
----
-
-Built with ❤️ using AI, Python, and TypeScript. Perfect for learning about multi-agent systems and modern web development! 
